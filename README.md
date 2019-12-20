@@ -1,2 +1,2 @@
 # Spaceship-War
-A spaceship game
+El esqueleto de un juego de naves 2D top down. 
