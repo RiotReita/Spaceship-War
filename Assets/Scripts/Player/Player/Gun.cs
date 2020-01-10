@@ -8,8 +8,11 @@ namespace Spaceship_war
 
         [Header("Combat")]
         public float fireRate = 15f;
+        public float fireRateHeavy = 10f;
         public float bulletDamage = 0f;
         private float nextTimeToFire = 0f;
+        private float nextTimeToFireHeavy = 0f;
+
 
 
         void Start()
@@ -19,10 +22,9 @@ namespace Spaceship_war
         }
 
 
-        // Update is called once per frame
         void Update()
         {
-            if (VirtualInputManager.Instance.Fire1 && Time.time >= nextTimeToFire)
+            if (VirtualInputManager.Instance.HeavyFire && Time.time >= nextTimeToFire)
             {
                 nextTimeToFire = Time.time + 1f / fireRate;
                 Shoot();

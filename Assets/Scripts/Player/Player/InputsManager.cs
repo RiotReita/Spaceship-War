@@ -8,10 +8,17 @@ namespace Spaceship_war
     {
         void Update()
         {
+            // Movement
             VirtualInputManager.Instance.MoveHorizontal = Input.GetAxisRaw("Horizontal");
             VirtualInputManager.Instance.MoveVertical = Input.GetAxisRaw("Vertical");
 
-            VirtualInputManager.Instance.Fire1 = Input.GetButton("Fire1");
+            // Combat
+            VirtualInputManager.Instance.LightFire = Input.GetButton("A");
+            VirtualInputManager.Instance.HeavyFire = Input.GetButton("X");
+            VirtualInputManager.Instance.SelectLightFire = Input.GetButton("RB");
+            VirtualInputManager.Instance.SelectHeavyFire = Input.GetButton("LB");
+
+            VirtualInputManager.Instance.zero = Input.GetButton("B");
 
             VirtualInputManager.Instance.MouseScrolling = Input.GetAxis("Mouse ScrollWheel");
         }

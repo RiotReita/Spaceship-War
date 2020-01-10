@@ -4,63 +4,147 @@ namespace Spaceship_war
 {
     public class WeaponSwitching : MonoBehaviour
     {
-        public int selectedWeapon = 0;
+        public int selectedWeaponLight = 0;
+        public int selectedWeaponHeavy = 0;
+
+        public float ChoiceRateWL = 5f;
+        public float ChoiceRateWH = 5f;
+        private float nextTimeToChangeWL = 0f;
+        private float nextTimeToChangeWH = 0f;
+
+        public int lightWeaponCount;
+        public int heavyWeaponCount;
+        private GameObject[] lightWeapons;
+        private GameObject[] heavyWeapons;
+
+        private void Awake()
+        {
+            GetAllLightWeapons();
+            GetAllHeavyWeapons();
+        }
+
         void Start()
         {
-            SelectWeapon();
+            SelectWeaponLight();
+            SelectWeaponHeavy();
         }
 
-        void Update()
+        private void Update()
         {
-
-            int previousSelectedWeapon = selectedWeapon;
-
-            if (VirtualInputManager.Instance.MouseScrolling > 0f)
-            {
-                if (selectedWeapon >= transform.childCount - 1)
-                {
-                    selectedWeapon = 0;
-                }
-                else
-                {
-                    selectedWeapon++;
-                }
-            }
-
-            if (VirtualInputManager.Instance.MouseScrolling < 0f)
-            {
-                if (selectedWeapon <= 0)
-                {
-                    selectedWeapon = transform.childCount - 1;
-                }
-                else
-                {
-                    selectedWeapon--;
-                }
-            }
-
-            if (previousSelectedWeapon != selectedWeapon)
-            {
-                SelectWeapon();
-            }
-
+        
         }
 
-        void SelectWeapon()
+        private void FixedUpdate()
+        {
+            ChoicerWeaponLight();
+            ChoicerWeaponHeavy();
+        }
+
+        void GetAllLightWeapons()
+        {
+            lightWeapons = GameObject.FindGameObjectsWithTag("LightWeapon");
+            lightWeaponCount = lightWeapons.Length;
+            foreach (GameObject lightWeapon in lightWeapons)
+            {
+                lightWeapon.SetActive(false);
+            }
+        }
+
+        void GetAllHeavyWeapons()
+        {
+            heavyWeapons = GameObject.FindGameObjectsWithTag("HeavyWeapon");
+            heavyWeaponCount = heavyWeapons.Length;
+            foreach (GameObject heravyWeapon in heavyWeapons)
+            {
+                heravyWeapon.SetActive(false);
+            }
+        }
+
+
+        void ChoicerWeaponLight()
+        {
+            int previousSelectedWeaponLight = selectedWeaponLight;
+
+            if (VirtualInputManager.Instance.SelectLightFire && Time.time > nextTimeToChangeWL)
+            {
+                if (selectedWeaponLight >= lightWeaponCount - 1)
+                {
+                    selectedWeaponLight = 0;
+                }
+                else
+                {
+                    selectedWeaponLight++;
+                }
+                nextTimeToChangeWL = Time.time + ChoiceRateWL;
+            }
+
+            if (previousSelectedWeaponLight != selectedWeaponLight)
+            {
+                SelectWeaponLight();
+            }
+        }
+
+        void ChoicerWeaponHeavy()
+        {
+            int previousSelectedWeaponHeavy = selectedWeaponHeavy;
+
+            if (VirtualInputManager.Instance.SelectHeavyFire && Time.time > nextTimeToChangeWH)
+            {
+                Debug.Log("Heavy");
+                if (selectedWeaponHeavy >= heavyWeaponCount - 1)
+                {
+                    selectedWeaponHeavy = 0;
+                }
+                else
+                {
+                    selectedWeaponHeavy++;
+                }
+                nextTimeToChangeWH = Time.time + ChoiceRateWH;
+            }
+
+            if (previousSelectedWeaponHeavy != selectedWeaponHeavy)
+            {
+                SelectWeaponHeavy();
+            }
+        }
+
+        void SelectWeaponLight()
         {
             int i = 0;
-            foreach (Transform weapon in transform)
+
+            foreach(GameObject lightWeapon in lightWeapons)
             {
-                if (i == selectedWeapon)
+                if (i == selectedWeaponLight)
                 {
-                    weapon.gameObject.SetActive(true);
+                    lightWeapon.SetActive(true);
                 }
                 else
                 {
-                    weapon.gameObject.SetActive(false);
+                    lightWeapon.SetActive(false);
                 }
                 i++;
             }
         }
+
+        void SelectWeaponHeavy()
+        {
+            int i = 0;
+
+            foreach(GameObject heavyWeapon in heavyWeapons)
+            {
+                if (i == selectedWeaponHeavy)
+                {
+                    heavyWeapon.SetActive(true);
+                }
+                else
+                {
+                    heavyWeapon.SetActive(false);
+                }
+                i++;
+            }
+        }
+
+
     }
 }
+

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6859246026655013356}
   - component: {fileID: 1965485328244372899}
   m_Layer: 0
-  m_Name: GunLight2
+  m_Name: GunLight1
   m_TagString: LightWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,6 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6437d78e55f8c054b8048b9f717aa1b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 6476381407055269271, guid: e4095c7742604ab48bc395c6f0024803, type: 3}
-  fireRate: 7
-  bulletDamage: 5
+  bullet: {fileID: 6476381407055269271, guid: a3a41c3cfb63d2d43a13504c2966fb43, type: 3}
+  fireRate: 15
+  bulletDamage: 2
